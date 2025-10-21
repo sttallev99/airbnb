@@ -12,7 +12,8 @@ property_data =  [
     address_2: "Unit B",
     city: "Portsmouth",
     state: "NH",
-    country: "USA"
+    country: "USA",
+    price: Money.from_amount(50, 'USD')
   },
   {
     name: "Greenfield Yoga Studio",
@@ -22,7 +23,8 @@ property_data =  [
     address_2: "3rd Floor",
     city: "Greenfield",
     state: "MA",
-    country: "USA"
+    country: "USA",
+    price: Money.from_amount(100, 'USD')
   },
   {
     name: "Astra Tech Hub",
@@ -32,7 +34,8 @@ property_data =  [
     address_2: "",
     city: "Austin",
     state: "TX",
-    country: "USA"
+    country: "USA",
+    price: Money.from_amount(60, 'USD')
   },
   {
     name: "La Cocina del Barrio",
@@ -42,7 +45,8 @@ property_data =  [
     address_2: "Esquina con Mercado",
     city: "San Juan",
     state: "PR",
-    country: "Puerto Rico"
+    country: "Puerto Rico",
+    price: Money.from_amount(140, 'USD')
   },
   {
     name: "Nordic Bookstore",
@@ -52,7 +56,8 @@ property_data =  [
     address_2: "",
     city: "Gothenburg",
     state: "Västra Götaland",
-    country: "Sweden"
+    country: "Sweden",
+    price: Money.from_amount(550, 'USD')
   },
   {
     name: "Peakview Apartments",
@@ -62,7 +67,8 @@ property_data =  [
     address_2: "Building C",
     city: "Boulder",
     state: "CO",
-    country: "USA"
+    country: "USA",
+    price: Money.from_amount(350, 'USD')
   },
   {
     name: "Basil & Bloom",
@@ -72,7 +78,8 @@ property_data =  [
     address_2: "",
     city: "Brighton",
     state: "East Sussex",
-    country: "United Kingdom"
+    country: "United Kingdom",
+    price: Money.from_amount(800, 'USD')
   },
   {
     name: "Riverside Veterinary Clinic",
@@ -82,7 +89,8 @@ property_data =  [
     address_2: "Suite 2",
     city: "Ottawa",
     state: "Ontario",
-    country: "Canada"
+    country: "Canada",
+    price: Money.from_amount(300, 'USD')
   },
   {
     name: "Mercato degli Artigiani",
@@ -92,7 +100,8 @@ property_data =  [
     address_2: "",
     city: "Lucca",
     state: "Tuscany",
-    country: "Italy"
+    country: "Italy",
+    price: Money.from_amount(600, 'USD')
   },
   {
     name: "Silverline Auto Repair",
@@ -102,7 +111,8 @@ property_data =  [
     address_2: "Unit 5",
     city: "Newark",
     state: "NJ",
-    country: "USA"
+    country: "USA",
+    price: Money.from_amount(1000, 'USD')
   },
   {
     name: "Studio Lumière",
@@ -112,7 +122,8 @@ property_data =  [
     address_2: "2ème étage",
     city: "Lyon",
     state: "Auvergne-Rhône-Alpes",
-    country: "France"
+    country: "France",
+    price: Money.from_amount(899, 'USD')
   },
   {
     name: "Seabreeze Hostel",
@@ -122,10 +133,11 @@ property_data =  [
     address_2: "",
     city: "Byron Bay",
     state: "NSW",
-    country: "Australia"
+    country: "Australia",
+    price: Money.from_amount(988, 'USD')
   }
 ]
 
 property_data.each do |property|
-  Property.find_or_create_by!(property)
+  Property.create!(property)
 end

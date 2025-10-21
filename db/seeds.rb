@@ -69,75 +69,100 @@ property_data =  [
     state: "CO",
     country: "USA",
     price: Money.from_amount(350, 'USD')
-  },
-  {
-    name: "Basil & Bloom",
-    headline: "Florist & seasonal gift shop",
-    description: "Artisanal floral arrangements, locally-sourced plants, and hand-wrapped gifts. Workshops for bouquet-making and holiday centerpieces every month.",
-    address_1: "129 Victoria Rd",
-    address_2: "",
-    city: "Brighton",
-    state: "East Sussex",
-    country: "United Kingdom",
-    price: Money.from_amount(800, 'USD')
-  },
-  {
-    name: "Riverside Veterinary Clinic",
-    headline: "Compassionate care for pets",
-    description: "Full-service veterinary clinic providing wellness exams, vaccinations, and urgent care. Friendly staff and separate cat and dog waiting areas.",
-    address_1: "601 Riverbend Way",
-    address_2: "Suite 2",
-    city: "Ottawa",
-    state: "Ontario",
-    country: "Canada",
-    price: Money.from_amount(300, 'USD')
-  },
-  {
-    name: "Mercato degli Artigiani",
-    headline: "Weekend artisan market",
-    description: "Open-air market featuring local makers: ceramics, textiles, specialty foods, and live music. Family-friendly with workshops for kids and a rotating lineup of food trucks.",
-    address_1: "Piazza San Marco",
-    address_2: "",
-    city: "Lucca",
-    state: "Tuscany",
-    country: "Italy",
-    price: Money.from_amount(600, 'USD')
-  },
-  {
-    name: "Silverline Auto Repair",
-    headline: "Trusted mechanics since 1998",
-    description: "Full-service auto repair shop specializing in European and Asian models. Courtesy shuttle, diagnostic services, and transparent estimates.",
-    address_1: "22 Industrial Park Rd",
-    address_2: "Unit 5",
-    city: "Newark",
-    state: "NJ",
-    country: "USA",
-    price: Money.from_amount(1000, 'USD')
-  },
-  {
-    name: "Studio Lumière",
-    headline: "Photography & creative studio",
-    description: "Rental studio space with natural and continuous lighting, backdrops, and prop collection. Offers portrait, product, and location shoots with experienced technicians.",
-    address_1: "14 Rue des Arts",
-    address_2: "2ème étage",
-    city: "Lyon",
-    state: "Auvergne-Rhône-Alpes",
-    country: "France",
-    price: Money.from_amount(899, 'USD')
-  },
-  {
-    name: "Seabreeze Hostel",
-    headline: "Budget stay for backpackers",
-    description: "Friendly hostel with dorms, private rooms, and a communal kitchen. Organized surf lessons, bike rentals, and weekly communal dinners to meet fellow travelers.",
-    address_1: "7 Oceanview Walk",
-    address_2: "",
-    city: "Byron Bay",
-    state: "NSW",
-    country: "Australia",
-    price: Money.from_amount(988, 'USD')
   }
+  # {
+  #   name: "Basil & Bloom",
+  #   headline: "Florist & seasonal gift shop",
+  #   description: "Artisanal floral arrangements, locally-sourced plants, and hand-wrapped gifts. Workshops for bouquet-making and holiday centerpieces every month.",
+  #   address_1: "129 Victoria Rd",
+  #   address_2: "",
+  #   city: "Brighton",
+  #   state: "East Sussex",
+  #   country: "United Kingdom",
+  #   price: Money.from_amount(800, 'USD')
+  # },
+  # {
+  #   name: "Riverside Veterinary Clinic",
+  #   headline: "Compassionate care for pets",
+  #   description: "Full-service veterinary clinic providing wellness exams, vaccinations, and urgent care. Friendly staff and separate cat and dog waiting areas.",
+  #   address_1: "601 Riverbend Way",
+  #   address_2: "Suite 2",
+  #   city: "Ottawa",
+  #   state: "Ontario",
+  #   country: "Canada",
+  #   price: Money.from_amount(300, 'USD')
+  # },
+  # {
+  #   name: "Mercato degli Artigiani",
+  #   headline: "Weekend artisan market",
+  #   description: "Open-air market featuring local makers: ceramics, textiles, specialty foods, and live music. Family-friendly with workshops for kids and a rotating lineup of food trucks.",
+  #   address_1: "Piazza San Marco",
+  #   address_2: "",
+  #   city: "Lucca",
+  #   state: "Tuscany",
+  #   country: "Italy",
+  #   price: Money.from_amount(600, 'USD')
+  # },
+  # {
+  #   name: "Silverline Auto Repair",
+  #   headline: "Trusted mechanics since 1998",
+  #   description: "Full-service auto repair shop specializing in European and Asian models. Courtesy shuttle, diagnostic services, and transparent estimates.",
+  #   address_1: "22 Industrial Park Rd",
+  #   address_2: "Unit 5",
+  #   city: "Newark",
+  #   state: "NJ",
+  #   country: "USA",
+  #   price: Money.from_amount(1000, 'USD')
+  # },
+  # {
+  #   name: "Studio Lumière",
+  #   headline: "Photography & creative studio",
+  #   description: "Rental studio space with natural and continuous lighting, backdrops, and prop collection. Offers portrait, product, and location shoots with experienced technicians.",
+  #   address_1: "14 Rue des Arts",
+  #   address_2: "2ème étage",
+  #   city: "Lyon",
+  #   state: "Auvergne-Rhône-Alpes",
+  #   country: "France",
+  #   price: Money.from_amount(899, 'USD')
+  # },
+  # {
+  #   name: "Seabreeze Hostel",
+  #   headline: "Budget stay for backpackers",
+  #   description: "Friendly hostel with dorms, private rooms, and a communal kitchen. Organized surf lessons, bike rentals, and weekly communal dinners to meet fellow travelers.",
+  #   address_1: "7 Oceanview Walk",
+  #   address_2: "",
+  #   city: "Byron Bay",
+  #   state: "NSW",
+  #   country: "Australia",
+  #   price: Money.from_amount(988, 'USD')
+  # }
 ]
 
-property_data.each do |property|
-  Property.create!(property)
+property_data.each_with_index do |property_data_item, index|
+  property = Property.create!(property_data_item)
+
+  find_image = ->(n) do
+    pattern = Rails.root.join("db", "images", "property_#{n}.*")
+    Dir.glob(pattern).find { |f| f =~ /\.(jpg|jpeg|png|gif|bmp|tiff|webp|heic|jfif)$/i }
+  end
+
+  image1 = find_image.call(index + 1)
+  if image1
+    property.images.attach(
+      io: File.open(image1),
+      filename: File.basename(image1)
+    )
+  else
+    puts "⚠️ No image found for property_#{index + 1}"
+  end
+
+  image2 = find_image.call(index + 7)
+  if image2
+    property.images.attach(
+      io: File.open(image2),
+      filename: File.basename(image2)
+    )
+  else
+    puts "⚠️ No image found for property_#{index + 7}"
+  end
 end

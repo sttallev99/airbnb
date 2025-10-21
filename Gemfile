@@ -20,6 +20,7 @@ gem "tailwindcss-rails"
 gem "jbuilder"
 gem "devise", "~> 4.9", ">= 4.9.3"
 gem "money-rails", "~> 1.12"
+gem "image_processing", ">= 1.2"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
